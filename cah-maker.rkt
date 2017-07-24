@@ -39,7 +39,9 @@
    (file->lines
     (build-path (current-directory)
                 (string-append card-color
-                               ".txt")))))
+                               ".txt"))))
+  (displayln
+   (string-append "All cards have been saved to ./" card-color "-cards!")))
 
 ; generate-cards :: List-of-strings -> Boolean
 ; Generates Cards Against Humanity from the List-of-strings captions.
@@ -47,6 +49,8 @@
   (cond
     [(empty? captions) #true]
     [(cons? captions)
+       (displayln
+        (string-append "Creating " card-color " card #" (~a (length captions)) "..."))
        (save-image (card-against-humanity (first captions))
                    (build-path (current-directory)
                                (string-append card-color "-cards")

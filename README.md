@@ -5,7 +5,7 @@ A Racket program that generates cards in the style of Cards Against Humanity.
 
 | White Card | Black Card | Black Card (Pick 2) | Black Card (Pick 3) |
 |:----------:|:----------:|:-------------------:|:-------------------:|
-|![white-5](https://user-images.githubusercontent.com/13021310/28506620-a13a1b24-6ffa-11e7-9476-dbd82dc032ad.png)|![black-3](https://user-images.githubusercontent.com/13021310/28506635-bff05420-6ffa-11e7-9235-3d1c455ba456.png)|![black-2](https://user-images.githubusercontent.com/13021310/28506634-bfef2b04-6ffa-11e7-832e-50121aa2b00d.png)|![black-1](https://user-images.githubusercontent.com/13021310/28506633-bfef3090-6ffa-11e7-9af3-0150b12eab6a.png)|
+|![white-5](https://user-images.githubusercontent.com/13021310/28507422-9fd30c40-7000-11e7-8872-b054e4b34bbe.png)|![black-3](https://user-images.githubusercontent.com/13021310/28507424-a3839eae-7000-11e7-9841-bdff85dc352a.png)|![black-2](https://user-images.githubusercontent.com/13021310/28507425-a48ef56e-7000-11e7-9f90-86670601160d.png)|![black-1](https://user-images.githubusercontent.com/13021310/28507426-a5cf05fe-7000-11e7-92cc-103f7893f912.png)|
 
 ## Setup
 

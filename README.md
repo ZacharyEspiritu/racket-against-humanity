@@ -37,12 +37,16 @@ You can specify which color cards you want to generate in the `make-cards` funct
 
 This will start the process of generating your cards. All card captions should be placed in the `black.txt` and `white.txt` files, each separated by a newline. They will be saved to the `./black-cards` and `./white-cards` folders, respectively.
 
+### Changing Template Images
+
 You can change the image that your captions are superimposed upon by swapping out the files in the `./template-images/blanks` for images with the exact same name _and_ dimensions. The required file names are:
 
 * `front-white.png`
 * `front-black.png`
 * `front-black-pick2.png`
 * `front-black-pick3.png`
+
+### Pick 2 and Pick 3 Cards
 
 You can specify a black card's caption to be generated as a "Pick 2" and "Pick 3" card by putting a `2` or a `3` immediately after the last character of your caption:
 

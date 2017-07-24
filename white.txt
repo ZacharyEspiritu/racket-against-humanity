@@ -1,0 +1,5 @@
+Parentheses. Oh my god, there are so many parentheses.
+Sneaking in a set! function.
+Unstable Pollen packages.
+A lack of StackOverflow support.
+Implicit value returns.

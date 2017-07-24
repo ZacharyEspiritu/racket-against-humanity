@@ -1,0 +1,5 @@
+Why does Racket use so many parentheses?
+I can’t mutate this variable in Racket! It’s just too _____!
+I spent all week trying to implement _____ in Racket even though twenty packages for it already existed in Python.
+Racket is such an experimental language, that the day after I used _____ it unexpectedly became _____.2
+The three rules of Racket: _____, _____, and _____.3

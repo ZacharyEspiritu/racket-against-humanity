@@ -27,7 +27,7 @@
 ; "black.txt". Cards will be exported to the ./white-cards or
 ; ./black-cards directory. Template images must be included in the
 ; ./template-images directory.
-(define (racket-cah color)
+(define (make-cards color)
   (set! card-color color)
   (cond
     [(equal? card-color "white")

@@ -21,18 +21,18 @@ Welcome to Racket v.6.9.
 >
 ```
 
-Load the `cah-maker.rkt` definitions into the Racket environment:
+Load the `racket-against-humanity.rkt` definitions into the Racket environment:
 
 ```
-> (load "cah-maker.rkt")
+> (load "racket-against-humanity.rkt")
 ```
 
 ## Usage
 
-You can specify which color cards you want to generate in the `cah-maker` function using:
+You can specify which color cards you want to generate in the `make-cards` function using:
 
 ```
-> (cah-maker "white")       ; or you can use (cah-maker "black")
+> (make-cards "white")       ; or you can use (make-cards "black")
 ```
 
 This will start the process of generating your cards. All card captions should be placed in the `black.txt` and `white.txt` files, each separated by a newline. They will be saved to the `./black-cards` and `./white-cards` folders, respectively.

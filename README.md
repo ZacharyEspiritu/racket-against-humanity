@@ -63,7 +63,6 @@ Captions with these modifiers will be superimposed on the `front-black-pick2.png
 Please refer to the [LICENSE file](https://github.com/ZacharyEspiritu/racket-against-humanity/blob/master/LICENSE) or the [GNU's website](http://www.gnu.org/licenses/#AGPL) for more information.
 
 ```
-
 racket-against-humanity: A Cards Against Humanity generator, in Racket
 Copyright (C) 2017  Zachary Espiritu (http://zacharyespiritu.com)
 
@@ -79,5 +78,4 @@ GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 ```

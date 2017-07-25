@@ -79,9 +79,9 @@
 ; Removes the Pick 2 or Pick 3 modifier from a String if it exists
 (define (parse-modifier string)
   (cond
-    [(equal? #\2 (last-char string))
+    [(equal? #\2 (string-last-char string))
      (substring string 0 (sub1 (string-length string)))]
-    [(equal? #\3 (last-char string))
+    [(equal? #\3 (string-last-char string))
      (substring string 0 (sub1 (string-length string)))]
     [else
      string]))
@@ -97,9 +97,9 @@
                (string-append "front-"
                               card-color
                               (cond
-                                [(equal? #\2 (last-char string))
+                                [(equal? #\2 (string-last-char string))
                                  "-pick2.png"]
-                                [(equal? #\3 (last-char string))
+                                [(equal? #\3 (string-last-char string))
                                  "-pick3.png"]
                                 [else
                                  ".png"])))))
@@ -112,20 +112,9 @@
     [(empty? lines) (rectangle 0 0 "solid" card-color)]
     [(cons? lines)
      (above/align "left"
-                  (bold-text (first lines))
+                  (bold-text-bitmap (first lines))
                   (rectangle 0 15 "solid" card-color)
                   (card-text (rest lines)))]))
-
-; word-row :: List-of-strings -> Image
-; Generates a single bitmap image of the strings in the List-of-strings,
-; concatenated. Meant for use to generate a single line of bitmap words
-(define (word-row strings)
-  (cond
-    [(empty? strings) (rectangle 0 0 "solid" card-color)]
-    [(cons? strings) (beside/align "baseline"
-                                   (bold-text (first strings))
-                                   (bold-text " ")
-                                   (word-row (rest strings)))]))
 
 ; text-wrap :: List-of-strings Integer -> List-of-strings
 ; Consumes a List-of-strings words and outputs a List-of-strings
@@ -152,9 +141,9 @@
                    (rest string-holder))))
      (reverse (map string-trim string-holder))]))
 
-; bold-text :: String ZebraColor -> Image
+; bold-text-bitmap :: String ZebraColor -> Image
 ; Generates a bitmap image of the String string in bold, Helvetica font.
-(define (bold-text string)
+(define (bold-text-bitmap string)
   (text/font string
              72
              text-color
@@ -164,7 +153,9 @@
              "bold"
              #f))
 
-(define (last-char string)
+; string-last-char :: String -> Char
+; Returns the last character of a string.
+(define (string-last-char string)
   (string-ref string
               (sub1 (string-length string))))
 

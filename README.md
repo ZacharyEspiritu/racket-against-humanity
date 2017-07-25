@@ -11,28 +11,20 @@ A Racket program that generates cards in the style of Cards Against Humanity.
 
 Download and install [Racket](https://racket-lang.org/) on your computer. After that, install the required [Pollen](https://docs.racket-lang.org/pollen/Installation.html) package.
 
-Open up your favorite command line, clone the Github repo to your computer, and start up the Racket environment:
+Open up your favorite command line and clone the Github repo to your computer:
 
 ```
 $ git clone https://github.com/ZacharyEspiritu/racket-against-humanity.git
 $ cd racket-against-humanity
-$ racket
-Welcome to Racket v.6.9.
->
-```
-
-Load the `racket-against-humanity.rkt` definitions into the Racket environment:
-
-```
-> (load "racket-against-humanity.rkt")
 ```
 
 ## Usage
 
-You can specify which color cards you want to generate in the `make-cards` function using:
+racket-against-humanity uses the `racket` command to load its function definitions. Along with the definition file path, the command takes a single parameter, `"white"` or `"black"`:
 
 ```
-> (make-cards "white")       ; or you can use (make-cards "black")
+$ racket "racket-against-humanity.rkt" "white"  ; generates white cards from white.txt
+$ racket "racket-against-humanity.rkt" "black"  ; generates black cards from black.txt
 ```
 
 This will start the process of generating your cards. All card captions should be placed in the `black.txt` and `white.txt` files, each separated by a newline. They will be saved to the `./black-cards` and `./white-cards` folders, respectively.

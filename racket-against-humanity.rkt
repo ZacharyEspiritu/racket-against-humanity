@@ -30,7 +30,7 @@
 ; A List-of-strings is one of: 
 ; – '()
 ; – (cons String List-of-strings)
-; interpretation a list of strings
+; interpretation a list of Strings
 
 ; Mutables
 

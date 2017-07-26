@@ -39,7 +39,7 @@
 
 ; Functions
 
-; racket-cah :: ZebraColor -> Boolean
+; make-cards :: ZebraColor ->
 ; Generates Cards Against Humanity for the specified color. Captions
 ; must be specified in a .txt file of the color's name: "white.txt" or
 ; "black.txt". Cards will be exported to the ./white-cards or

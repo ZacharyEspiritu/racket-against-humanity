@@ -1,19 +1,21 @@
 ;; 
-;; racket-against-humanity: A Cards Against Humanity generator, in Racket
+;; racket-against-humanity: A Cards Against Humanity generator, in
+;;                          Racket
 ;; Copyright (C) 2017  Zachary Espiritu (http://zacharyespiritu.com)
 ;; 
-;; This program is free software: you can redistribute it and/or modify
-;; it under the terms of the GNU Affero General Public License as published
-;; by the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
+;; This program is free software: you can redistribute it and/or 
+;; modify it under the terms of the GNU Affero General Public License
+;; as published by the Free Software Foundation, either version 3 of 
+;; the License, or (at your option) any later version.
 ;; 
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU Affero General Public License for more details.
 ;; 
-;; You should have received a copy of the GNU Affero General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;; You should have received a copy of the GNU Affero General Public
+;; License along with this program.  If not, see
+;; <http://www.gnu.org/licenses/>.
 ;;
 
 #lang racket/gui
@@ -154,7 +156,8 @@
      (reverse (map string-trim string-holder))]))
 
 ; bold-text-bitmap :: String ZebraColor -> Image
-; Generates a bitmap image of the String string in bold, Helvetica font.
+; Generates a bitmap image of the String string in bold, Helvetica
+; font.
 (define (bold-text-bitmap string)
   (text/font string
              72
@@ -172,8 +175,8 @@
               (sub1 (string-length string))))
 
 ; card-count-output :: List-of-strings -> String
-; Returns a string containing the number of remaining captions along with
-; the color of the card currently being generated.
+; Returns a string containing the number of remaining captions along 
+; with the color of the card currently being generated.
 (define (card-count-output captions)
   (string-append "  "
                  (~a (length captions))
@@ -182,8 +185,8 @@
                  " cards to go..."))
 
 ; string-parse-to-card-file-name :: String -> String
-; Parses the given String caption and returns the correct card backing. To
-; be used for generating Pick 2 and Pick 3 cards.
+; Parses the given String caption and returns the correct card
+; backing. To be used for generating Pick 2 and Pick 3 cards.
 (define (string-parse-to-card-file-name caption)
   (string-append "front-"
                  card-color
@@ -216,20 +219,26 @@
                             "-cards!"))
   (displayln ""))
 
+(define (first-command-line-argument)
+  (vector-ref (current-command-line-arguments) 0))
+
 ; Runtime
 
 (cond
   [(and (equal? (vector-length (current-command-line-arguments)) 1)
-        (or (equal? "white" (vector-ref (current-command-line-arguments) 0))
-            (equal? "black" (vector-ref (current-command-line-arguments) 0))))
-   (make-cards (vector-ref (current-command-line-arguments) 0))]
+        (or (equal? "white" (first-command-line-argument))
+            (equal? "black" (first-command-line-argument))))
+   (make-cards (first-command-line-argument))]
   [else
     (displayln "")
     (displayln "Thanks for using racket-against-humanity!")
-    (displayln "racket-against-humanity accepts a single argument: <\"white\"|\"black\">")
+    (display   "racket-against-humanity accepts a single argument: ")
+    (displayln "<\"white\"|\"black\">")
     (displayln "")
     (displayln "Example usage:")
-    (displayln "    racket \"racket-against-humanity.rkt\" \"white\"  ; generates white cards from white.txt")
-    (displayln "    racket \"racket-against-humanity.rkt\" \"black\"  ; generates black cards from black.txt")
+    (display "    racket \"racket-against-humanity.rkt\" \"white\"")
+    (displayln "  ; generates white cards from white.txt")
+    (display "    racket \"racket-against-humanity.rkt\" \"black\"")
+    (displayln "  ; generates black cards from black.txt")
     (displayln "")])
 

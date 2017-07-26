@@ -53,19 +53,15 @@
     [else
       (set! card-color "black")
       (set! text-color "white")])
-  (displayln "")
-  (displayln "Thanks for using racket-against-humanity!")
-  (displayln "Starting card generation process now...")
-  (displayln "")
-  (captions-to-cards
-   (file->lines
-    (build-path (current-directory)
-                (string-append card-color
-                               ".txt"))))
-  (displayln "")
-  (displayln
-   (string-append "All cards have been saved to ./" card-color "-cards!"))
-  (displayln ""))
+  (display-welcome-message)
+  (captions-to-cards (open-and-read-caption-input))
+  (display-ending-message))
+
+; open-and-read-caption-input :: -> Path
+; Retrieves the caption input text file for the specified card-color.
+(define (open-and-read-caption-input)
+  (file->lines (build-path (current-directory)
+                           (string-append card-color ".txt"))))
 
 ; generate-cards :: List-of-strings -> Boolean
 ; Generates Cards Against Humanity from the List-of-strings captions.
@@ -73,8 +69,7 @@
   (cond
     [(empty? captions) #true]
     [(cons? captions)
-       (displayln
-        (string-append "  " (~a (length captions)) " " card-color " cards to go..."))
+       (displayln (card-count-output captions))
        (save-image (card-against-humanity (first captions))
                    (build-path (current-directory)
                                (string-append card-color "-cards")
@@ -86,18 +81,12 @@
 
 ; card-against-humanity :: String -> Image
 ; Generates a Card Against Humanity from the given String string.
-(define (card-against-humanity string)
+(define (card-against-humanity caption)
   (set! string-holder (list ""))
   (overlay/align/offset "left" "top"
-                        (strings-to-paragraph-image
-                         (text-wrap
-                          (regexp-split #px" "
-                                        (smart-quotes
-                                         (parse-pick-many-modifier
-                                          string)))
-                          16))
+                        (text-wrapped-paragraph-bitmap caption)
                         -114 -126
-                        (bitmap-card-backing-for-color string)))
+                        (bitmap-card-backing-for-color caption)))
 
 ; parse-modifier :: String -> String
 ; Removes the Pick 2 or Pick 3 modifier from a String if it exists
@@ -118,15 +107,17 @@
    (build-path (current-directory)
                "template-images"
                "blanks"
-               (string-append "front-"
-                              card-color
-                              (cond
-                                [(equal? #\2 (string-last-char string))
-                                 "-pick2.png"]
-                                [(equal? #\3 (string-last-char string))
-                                 "-pick3.png"]
-                                [else
-                                 ".png"])))))
+               (string-parse-to-card-file-name string))))
+
+; text-wrapped-paragraph-bitmap :: String -> Image
+; Consumes a caption and returns a bitmap image of the text wrapped
+; in paragraph fashion with line breaks every 16 characters.
+(define (text-wrapped-paragraph-bitmap caption)
+  (strings-to-paragraph-image
+   (text-wrap (regexp-split #px" "
+                            (smart-quotes (parse-pick-many-modifier
+                                           caption)))
+              16)))
 
 ; card-text :: List-of-strings -> Image
 ; Consumes the lines in the List-of-strings and outputs them stacked
@@ -150,18 +141,15 @@
     [(cons? words)
      (for ([word words])
        (cond
-         [(> (+ (string-length word)
-                (string-length (first string-holder)))
-             width)
-          (cond
-            [(> (apply + (map string-length string-holder))
-                0)
-             (set! string-holder
-                   (cons "" string-holder))])])
+         [(and (> (+ (string-length word)
+                     (string-length (first string-holder)))
+                  width)
+               (> (apply + (map string-length string-holder))
+                  0))
+          (set! string-holder
+                (cons "" string-holder))])
        (set! string-holder
-             (cons (string-append (first string-holder)
-                                  " "
-                                  word)
+             (cons (string-append (first string-holder) " " word)
                    (rest string-holder))))
      (reverse (map string-trim string-holder))]))
 
@@ -183,15 +171,58 @@
   (string-ref string
               (sub1 (string-length string))))
 
+; card-count-output :: List-of-strings -> String
+; Returns a string containing the number of remaining captions along with
+; the color of the card currently being generated.
+(define (card-count-output captions)
+  (string-append "  "
+                 (~a (length captions))
+                 " "
+                 card-color
+                 " cards to go..."))
+
+; string-parse-to-card-file-name :: String -> String
+; Parses the given String caption and returns the correct card backing. To
+; be used for generating Pick 2 and Pick 3 cards.
+(define (string-parse-to-card-file-name caption)
+  (string-append "front-"
+                 card-color
+                 (cond
+                   [(equal? #\2 (string-last-char caption))
+                    "-pick2.png"]
+                   [(equal? #\3 (string-last-char caption))
+                    "-pick3.png"]
+                   [else
+                    ".png"])))
+
 ; string-holder :: -> List-of-strings
 ; Not meant to be called. Used to hold strings in certain functions.
 (define string-holder (list ""))
 
+; display-welcome-message :: ->
+; Displays a welcome message in the output stream.
+(define (display-welcome-message)
+  (displayln "")
+  (displayln "Thanks for using racket-against-humanity!")
+  (displayln "Starting card generation process now...")
+  (displayln ""))
+
+; display-ending-message :: ->
+; Displays a ending message in the output stream.
+(define (display-ending-message)
+  (displayln "")
+  (displayln (string-append "All cards have been saved to ./"
+                            card-color
+                            "-cards!"))
+  (displayln ""))
+
 ; Runtime
 
 (cond
-  [(equal? (vector-length (current-command-line-arguments)) 1)
-    (make-cards (vector-ref (current-command-line-arguments) 0))]
+  [(and (equal? (vector-length (current-command-line-arguments)) 1)
+        (or (equal? "white" (vector-ref (current-command-line-arguments) 0))
+            (equal? "black" (vector-ref (current-command-line-arguments) 0))))
+   (make-cards (vector-ref (current-command-line-arguments) 0))]
   [else
     (displayln "")
     (displayln "Thanks for using racket-against-humanity!")

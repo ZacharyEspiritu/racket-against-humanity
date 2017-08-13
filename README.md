@@ -22,7 +22,7 @@ $ cd racket-against-humanity
 
 racket-against-humanity uses the `racket` command to load its function definitions. Along with the definition file path, the command takes a single parameter, `"white"` or `"black"`:
 
-```
+```racket
 $ racket "racket-against-humanity.rkt" "white"  ; generates white cards from white.txt
 $ racket "racket-against-humanity.rkt" "black"  ; generates black cards from black.txt
 ```
@@ -45,9 +45,9 @@ You can specify a black card's caption to be generated as a "Pick 2" and "Pick 3
 ```
 # black.txt
 
-This is a normal card.
-This is a Pick 2 card.2
-This is a Pick 3 card.3
+Here's a normal card.
+Woah, this is a Pick 2 card.2
+And here's a Pick 3 card.3
 ```
 
 Captions with these modifiers will be superimposed on the `front-black-pick2.png` and `front-black-pick3.png` cards according to your specifications.
